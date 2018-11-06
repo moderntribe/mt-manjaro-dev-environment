@@ -139,7 +139,7 @@ echo "(cat ~/.cache/wal/sequences &)" >> $HOME/.bashrc
 # Setup snaps
 echo "* Setting up snapd..."
 sudo systemctl enable --now snapd.socket
-if [ ! -d /snap ]; then
+if [[ ! -d /snap ]]; then
     sudo ln -s /var/lib/snapd/snap /snap
 fi
 
