@@ -62,8 +62,8 @@ gpg --recv-keys --keyserver hkp://pgp.mit.edu A2C794A986419D8A
 echo "* Installing packages..."
 xargs sudo pacman -S --needed --noconfirm < $SCRIPTDIR/conf/pacman/pkglist.txt
 
-# Install software from AUR
-printf 'n\ny\n' | xargs -a $SCRIPTDIR/conf/pacman/aur.txt pamac build
+# Install software from AUR using yay
+xargs yay -S --noconfirm --mflags "--nocheck" < $SCRIPTDIR/conf/pacman/aur.txt
 
 # Install NVM
 echo "* Installing NVM v0.33.11..."
