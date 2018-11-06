@@ -124,6 +124,11 @@ mkdir $HOME/projects/codeable
 echo "* Copying php.ini to /etc/php..."
 sudo cp -f $SCRIPTDIR/conf/php/php.ini /etc/php/php.ini
 
+# Install EB cli
+echo "* Installing Amazon EB cli"
+pip install awsebcli --upgrade --user
+echo 'export PATH="~/.local/bin:$PATH"' >> $HOME/.bashrc
+
 # Set screenshot shortcut
 if [[ $XFCE = true ]]; then
     echo "* Setting screenshot hotkey CTRL+SHIFT+PRTSC to allow selecting an area to copy to clipboard..."
