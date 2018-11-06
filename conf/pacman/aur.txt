@@ -1,0 +1,8 @@
+chromedriver
+discord
+google-chrome
+phpstorm
+slack-desktop
+sublime-text-dev
+visual-studio-code-bin
+wp-cli

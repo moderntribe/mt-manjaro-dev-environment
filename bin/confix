@@ -1,0 +1,300 @@
+#!/bin/bash
+# --------------------------------------------------------------------
+#
+# confix - pure bash script to modify/update configuration files
+#
+# --------------------------------------------------------------------
+# AUTHOR:   Copyright (C) Budhaditya Das <budhash@gmail.com>
+# VERSION:  1.0
+# --------------------------------------------------------------------
+# DESCRIPTION:
+#
+# simple bash script to modify/update configuration files
+# --------------------------------------------------------------------
+# LICENSE:
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+# --------------------------------------------------------------------
+# USAGE:
+#
+# Type "confix -h" for usage guidelines.
+# --------------------------------------------------------------------
+
+## begin ## meta-data
+readonly __APPNAME=$( basename "${BASH_SOURCE[0]}" )
+readonly __APPVERSION=1.0
+readonly __SUPPORTED_OS=(MAC LINUX-DEBIAN)
+readonly __SUPPORTED_ARCH=(x86_64 x86)
+readonly __DEBUG=FALSE
+## end ## meta-data
+
+##
+# @info     logging functions
+##
+function _common.log() { echo "[info]: $@" 1>&2; }
+function _common.log_linebreak() { echo "" 1>&2; }
+function _common.warn() { echo "[warn]: $@" 1>&2; }
+function _common.error() { echo "[error]: $@" 1>&2; }
+function _common.error_exit() { echo "[error]: $@" 1>&2; exit 1;}
+function _common.debug () { [ "$__DEBUG" == "TRUE" ] && echo "[debug]: $@" 1>&2; }
+
+##
+# @info     string functions
+##
+function _common.trimall() { echo $(echo "$@" | tr -d '[ \t]' | tr 'A-Z' 'a-z'); }
+function _common.lowercase() { echo "$@" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"; }
+function _common.uppercase() { echo "$@" | sed "y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/"; }
+function _common.join_by() { local d=$1; shift; echo -n "$1"; shift; printf "%s" "${@/#/$d}"; }
+
+function __bootstrap(){	
+    readonly __BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+	readonly __BASEDIRNAME=$( basename "$__BASEDIR" )
+	readonly __TIMESTAMP=$(date +%m-%d-%Y_%H-%M_%S)
+
+	#grep
+	__GREP=grep
+	#cat
+	__CAT=cat
+	#sed
+	if sed --version 2>&1 | grep -q GNU; then
+	    if sed -c 2>&1 | grep -q invalid; then
+            __SED="sed -i "
+	    else
+	        __SED="sed -c -i "
+	    fi
+	else
+        #mac sed
+        __SED="/usr/bin/sed -i '' "
+	fi
+	_common.debug "sed - $__SED"
+}
+
+function _usage()
+{
+    if [ "$1" != "error" ]; then
+        echo "$__APPNAME $__APPVERSION, pure bash script to modify/update configuration files"
+    fi
+    cat << EOF
+Usage: $__APPNAME [OPTIONS]... [commands1] [commands2]
+Options:
+-------
+    -h                          
+        show this message
+        
+    -f <file_name>           
+    	name of the file that needs to be modified
+   
+    -o <output_file>                            
+        default behavior is to edit/modify the file_name
+		"-" prints the modifications to console without updating file_name
+
+	-e <external_command_file>                            
+        pick up edit commands from external file. 
+		this file should contain one command per line
+			    
+    -s <separator_character>            
+        default value is "="
+        
+    -c <comment_character>                            
+        default value is "#"
+
+
+Examples:
+--------
+	- remove (comment out) an existing config element
+	$__APPNAME -c '#' -s':' -f cassandra.yaml "<gc_warn_threshold_in_ms"
+
+	- uncomment an existing config element (no action if the config key does not exist)
+	$__APPNAME -s':' -f cassandra.yaml ">concurrent_compactors"
+
+	- add a new config to the end of the file (or update existing config) 
+	$__APPNAME -s':' -f cassandra.yaml ">new_param=/some/val"
+
+	- update the value of an existing config element
+	$__APPNAME -s':' -f cassandra.yaml "gc_warn_threshold_in_ms=2001"
+
+	- multiple commands
+	$__APPNAME -s':' -f cassandra.yaml "gc_warn_threshold_in_ms=2001" ">concurrent_compactors" "commitlog_directory=/change/commitlog"
+  
+	- prints the modifications to console without updating the original file
+	$__APPNAME -o- -f log4j.properties "log4j.logger.com.endeca.itl.web.metrics=DEBUG" 
+	
+	- save the modifications to a different file
+	$__APPNAME -olog4j-dev.properties -f log4j.properties "log4j.logger.com.endeca.itl.web.metrics=DEBUG"
+	
+	- specify the edit/update commands via external file (log4j.cf) instead of commandline
+	$__APPNAME -o- -e log4j.cf -f log4j.properties
+	
+EOF
+    if [ "$1" == "error" ]; then
+        exit 1
+    fi
+}
+
+function _main(){
+    __bootstrap
+
+	#variables
+	__input_file="-"
+	__output_file=""
+	__config_file=
+	__console_output=false
+	__sep_char="="
+	__comment_char="#"
+
+	#parse commandline
+	while getopts "hf:o:e:s:c:" OPTION
+    do
+         case "$OPTION" in
+			 h) _usage;;
+	 		 f) __input_file=$OPTARG;;
+			 o) __output_file=$OPTARG;;
+			 e) __config_file=$OPTARG;;
+			 s) __sep_char=$OPTARG;;
+			 c) __comment_char=$OPTARG;;
+             ?) _usage error;;
+         esac
+    done
+	shift $((OPTIND-1))
+	
+	
+	#check if file exists
+	[[ -e $__input_file ]] || _common.error_exit "file not found : [-f $__input_file] - please specify file to be updated"
+	
+	#check if inplace editing is expected
+	if [[ ! -z "$__output_file" ]]; then
+		if [ "$__output_file" == "-" ]; then
+			#print output to console
+			__console_output=true
+			__output_file=$(mktemp -t "$__APPNAME.XXXXXXXXXX")
+		fi	
+		cp -f $__input_file $__output_file
+		__input_file=$__output_file
+	fi
+	
+	#read commands from external file
+	if [[ ! -z "$__config_file" ]]; then
+		[[ -e $__config_file ]] || _common.error_exit "external config file not found : [-e $__config_file]"
+		while IFS=$'\n' read cmd
+		do
+			if [[ ! "$cmd" =~ \#.* ]] && [[ ! -z "$cmd" ]];then
+				_change_config "$cmd"
+			fi	
+		done < $__config_file
+	fi	
+	
+	#iterate through commands passed via commandline	
+    while test ${#} -gt 0
+	do
+	  _change_config "$1"
+	  shift
+	done
+	
+	#print out the config to console
+	if [ "$__console_output" == "true" ]; then
+		$__CAT $__output_file
+		rm -f $__output_file
+	fi	
+}
+
+function _change_config(){
+	local _cmd="$@"
+
+	if [[ $_cmd == ">"* ]]; then
+	    _add_config ${_cmd#">"}
+	elif [[ $_cmd == "<"* ]]; then
+		_remove_config ${_cmd#"<"}
+	else		
+		_update_config $_cmd
+	fi	
+}
+
+function _update_config(){
+    local _cmd_param=(${1//=/ })
+    local _key=${_cmd_param[0]}
+	[[ -z "$_key" ]] && return
+	
+	_cmd_param=( "${_cmd_param[@]:1}" ) 
+    local _val=$(_common.join_by '=' ${_cmd_param[@]})
+
+	local _key_status=$(__exists_config "$_key")
+	if [ "$_key_status" -eq "2" ]; then	
+		__remove_comment $_key
+	fi
+	
+    if [[ "$_val" ==  *\/* ]] ; then
+	  $__SED "s#\($_key *$__sep_char *\).*#\1$_val#" $__input_file
+	else
+	  $__SED "s/\($_key *$__sep_char *\).*/\1$_val/" $__input_file
+	fi
+}
+
+function _add_config(){
+    local _cmd_param=(${1//=/ })
+    local _key=${_cmd_param[0]} 
+	[[ -z "$_key" ]] && return
+	
+	_cmd_param=( "${_cmd_param[@]:1}" ) 
+    local _val=`_common.join_by '=' ${_cmd_param[@]}`
+	
+	if [ -z "$_val" ]; then
+	    __remove_comment "$_key"
+	else
+		local _key_status=$(__exists_config "$_key")
+		if [ "$_key_status" -eq "0" ]; then
+			#key doesn't exist - add it to end of file
+			echo "" >> $__input_file
+			echo "$_key$__sep_char$_val" >> $__input_file
+		else	
+		    _update_config "$@"
+		fi
+	fi
+}
+
+function _remove_config(){
+    local _cmd_param=(${1//=/ })
+    local _key=${_cmd_param[0]}
+	[[ -z "$_key" ]] && return
+	
+	if [ "$(__exists_config "$_key")" -eq "1" ]; then
+	    __add_comment "$_key"
+	fi	
+}
+
+function __add_comment(){
+	[[ -z "$1" ]] && return	|| local _key="$1"
+    $__SED "/$_key[ ]*$__sep_char/s/^/$__comment_char/" $__input_file
+}
+
+function __remove_comment(){
+	[[ -z "$1" ]] && return	|| local _key="$1"
+    $__SED "s/^[ #]*\($_key[ ]*$__sep_char\)/\1/" $__input_file
+}
+
+function __exists_config(){
+	[[ -z "$1" ]] && return	|| local _key="$1"
+	if $__GREP -q "^[ ]*$_key[ ]*$__sep_char" $__input_file; then
+		#_common.log exists-uncommented
+		echo 1
+	elif $__GREP -q "^[ #]*$_key[ ]*$__sep_char" $__input_file; then
+		#_common.log exists-commented
+		echo 2
+	else
+		#_common.log doesnot-exist
+		echo 0
+	fi
+}
+
+#trap _cleanup 1 2 3 4 6 8 10 12 13 15
+_main $@
+exit 0
