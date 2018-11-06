@@ -55,6 +55,9 @@ sudo cp -f $SCRIPTDIR/conf/etc/pamac.conf /etc/pamac.conf
 echo "* Choosing the fastest mirrors for your location and updating the system..."
 sudo pacman-mirrors --fasttrack && sudo pacman -Syyu
 
+# Import gpg keys for some AUR packages
+gpg --recv-keys --keyserver hkp://pgp.mit.edu A2C794A986419D8A
+
 # Install software
 echo "* Installing packages..."
 xargs sudo pacman -S --needed --noconfirm < $SCRIPTDIR/conf/pacman/pkglist.txt
