@@ -24,3 +24,4 @@ ttf-indic-otf
 ttf-liberation
 xdebug
 yarn
+yay
