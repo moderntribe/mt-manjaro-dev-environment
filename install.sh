@@ -69,6 +69,11 @@ xargs yay -S --noconfirm --mflags "--nocheck" < $SCRIPTDIR/conf/pacman/aur.txt
 echo "* Installing NVM v0.33.11..."
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 
+# Install EB cli
+echo "* Installing Amazon EB cli"
+pip install awsebcli --upgrade --user
+echo 'export PATH="~/.local/bin:$PATH"' >> $HOME/.bashrc
+
 # Install themes and icons
 if [[ $THEME = true ]]; then
     echo "* Installing Arc theme..."
@@ -123,11 +128,6 @@ mkdir $HOME/projects/codeable
 # Configure PHP
 echo "* Copying php.ini to /etc/php..."
 sudo cp -f $SCRIPTDIR/conf/php/php.ini /etc/php/php.ini
-
-# Install EB cli
-echo "* Installing Amazon EB cli"
-pip install awsebcli --upgrade --user
-echo 'export PATH="~/.local/bin:$PATH"' >> $HOME/.bashrc
 
 # Set screenshot shortcut
 if [[ $XFCE = true ]]; then
