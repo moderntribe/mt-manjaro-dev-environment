@@ -12,6 +12,7 @@ node-gyp
 nodejs
 noto-fonts-emoji
 npm
+OBS
 php
 php-gd
 python-pywal
