@@ -72,7 +72,9 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | 
 # Install EB cli
 echo "* Installing Amazon EB cli"
 pip install awsebcli --upgrade --user
-echo 'export PATH="~/.local/bin:$PATH"' >> $HOME/.bashrc
+if ! command grep -qc '~/.local/bin' $HOME/.bashrc; then
+    echo 'export PATH="~/.local/bin:$PATH"' >> $HOME/.bashrc
+fi
 
 # Install themes and icons
 if [[ $THEME = true ]]; then
@@ -139,7 +141,9 @@ fi
 echo "* Setting wallpaper and terminal colors..."
 sudo cp -f $SCRIPTDIR/images/girlwallpaper.jpg /usr/share/backgrounds/girlwallpaper.jpg
 wal -q -i /usr/share/backgrounds/girlwallpaper.jpg
-echo "(cat ~/.cache/wal/sequences &)" >> $HOME/.bashrc
+if ! command grep -qc '(cat ~/.cache/wal/sequences &)' $HOME/.bashrc; then
+    echo "(cat ~/.cache/wal/sequences &)" >> $HOME/.bashrc
+fi
 
 # Setup snaps
 echo "* Setting up snapd..."
