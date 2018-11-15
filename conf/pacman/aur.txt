@@ -6,3 +6,4 @@ slack-desktop
 sublime-text-dev
 visual-studio-code-bin
 wp-cli
+zoom

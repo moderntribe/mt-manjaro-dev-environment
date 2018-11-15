@@ -26,4 +26,3 @@ ttf-liberation
 xdebug
 yarn
 yay
-zoom
