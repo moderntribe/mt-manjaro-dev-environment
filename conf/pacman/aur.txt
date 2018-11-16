@@ -1,3 +1,4 @@
+dockstation
 chromedriver
 discord
 google-chrome
