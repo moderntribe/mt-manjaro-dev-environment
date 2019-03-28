@@ -5,6 +5,7 @@ docker
 docker-compose
 docker-machine
 filezilla
+jq
 lsof
 mariadb-clients
 neofetch
