@@ -1,5 +1,6 @@
 ansible
 aws-cli
+bower
 composer
 docker
 docker-compose
