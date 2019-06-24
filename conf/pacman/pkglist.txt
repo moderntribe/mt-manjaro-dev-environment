@@ -1,5 +1,6 @@
 ansible
 aws-cli
+bind-tools
 bower
 composer
 docker
