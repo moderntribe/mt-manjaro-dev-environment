@@ -18,6 +18,8 @@ npm
 obs-studio
 php
 php-gd
+php-memcache
+php-memcached
 python-pywal
 snapd
 telegram-desktop
