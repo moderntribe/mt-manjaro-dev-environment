@@ -2,6 +2,9 @@ dockstation
 chromedriver
 discord
 google-chrome
+libreswan
+networkmanager-l2tp
+networkmanager-libreswan
 phpstorm
 slack-desktop
 sublime-text-dev
