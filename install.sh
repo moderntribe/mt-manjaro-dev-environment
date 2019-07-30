@@ -57,6 +57,8 @@ sudo pacman-mirrors --fasttrack && sudo pacman -Syyu
 
 # Import gpg keys for some AUR packages
 gpg --recv-keys --keyserver hkp://pgp.mit.edu A2C794A986419D8A
+# php-codesniffer
+gpg --recv-keys 31C7E470E2138192
 
 # Install software
 echo "* Installing packages..."
