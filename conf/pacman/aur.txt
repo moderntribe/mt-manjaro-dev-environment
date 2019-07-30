@@ -1,10 +1,11 @@
-dockstation
 chromedriver
 discord
+dockstation
 google-chrome
 libreswan
 networkmanager-l2tp
 networkmanager-libreswan
+php-codesniffer
 phpstorm
 slack-desktop
 sublime-text-dev
