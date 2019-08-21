@@ -141,8 +141,8 @@ fi
 
 # Wallpaper and terminal colors
 echo "* Setting wallpaper and terminal colors..."
-sudo cp -f $SCRIPTDIR/images/girlwallpaper.jpg /usr/share/backgrounds/girlwallpaper.jpg
-wal -q -i /usr/share/backgrounds/girlwallpaper.jpg
+sudo cp -f $SCRIPTDIR/images/spectral.jpg /usr/share/backgrounds/spectral.jpg
+wal -q -i /usr/share/backgrounds/spectral.jpg
 if ! command grep -qc '(cat ~/.cache/wal/sequences &)' $HOME/.bashrc; then
     echo "(cat ~/.cache/wal/sequences &)" >> $HOME/.bashrc
 fi

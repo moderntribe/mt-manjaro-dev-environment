@@ -58,7 +58,6 @@ If you're experiencing issues, try switching Kernels, which Manjaro makes [very 
 
 ## Credits
 
-Girl in Window Wallpaper: https://www.pixiv.net/member_illust.php?mode=medium&illust_id=64495434  
 Spectral Wallpaper: https://www.deviantart.com/specialized666/art/Spectral-734639744  
 Confix Script: https://github.com/budhash/confix
  
