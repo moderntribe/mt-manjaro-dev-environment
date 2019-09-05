@@ -1,7 +1,7 @@
+brave-bin
 chromedriver
 discord
 dockstation
-google-chrome
 libreswan
 networkmanager-l2tp
 networkmanager-libreswan
