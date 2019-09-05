@@ -167,6 +167,10 @@ sudo cp -f $SCRIPTDIR/bin/stopcontainers.sh /usr/local/bin/stopcontainers.sh
 sudo chown root.root /usr/local/bin/*
 sudo chmod +x /usr/local/bin/*
 
+# Enable user namespaces so Brave works properly
+echo "* Enabling user namespaces..."
+echo kernel.unprivileged_userns_clone = 1 | sudo tee /etc/sysctl.d/00-local-userns.conf
+
 # Notes and Reboot
 echo "**************************************************************************************************************************"
 echo "If you have touchpad problems, you might want to consider downgrading the kernel. See the README for more information."
