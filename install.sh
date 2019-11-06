@@ -129,6 +129,14 @@ mkdir $HOME/projects/tribe
 mkdir $HOME/projects/personal
 mkdir $HOME/projects/codeable
 
+# Clone Square One
+if [[ ! -d $HOME/projects/tribe/square-one ]]; then
+    echo "* Cloning the Square One framework to $HOME/projects/tribe/square-one..."
+    git clone https://github.com/moderntribe/square-one/ $HOME/projects/tribe/square-one
+else
+    echo "* Skipping Square One cloning, directory already exists..."
+fi
+
 # Configure PHP
 echo "* Copying php.ini to /etc/php..."
 sudo cp -f $SCRIPTDIR/conf/php/php.ini /etc/php/php.ini
@@ -175,7 +183,6 @@ echo kernel.unprivileged_userns_clone = 1 | sudo tee /etc/sysctl.d/00-local-user
 echo "**************************************************************************************************************************"
 echo "If you have touchpad problems, you might want to consider downgrading the kernel. See the README for more information."
 echo "I personally backup my .ssh/config folders, id_rsa, id_rsa.pub, known_hosts, VPN configs and github keys which I would manually restore at this point."
-echo "After reboot, clone square-one to $HOME/projects/tribe."
 echo "**************************************************************************************************************************"
 echo "* Reboot now to complete the installation [y/n]?"
 read CHOICE
