@@ -22,6 +22,7 @@ php-memcache
 php-memcached
 python-pywal
 snapd
+systemd-swap
 telegram-desktop
 ttf-bitstream-vera
 ttf-droid

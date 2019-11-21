@@ -7,6 +7,7 @@ SCRIPTDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 XFCE=true
 THEME=true
 WHISKER=$HOME/.config/xfce4/panel/whiskermenu-8.rc
+SYSTEMD_SWAP_CONFIG=/etc/systemd/swap.conf
 
 # Ensure this is run without sudo
 if [[ $UID = 0 ]]; then
@@ -161,6 +162,12 @@ sudo systemctl enable --now snapd.socket
 if [[ ! -d /snap ]]; then
     sudo ln -s /var/lib/snapd/snap /snap
 fi
+
+# Systemd-swap to help with memory problems
+echo "* Setting up systemd-swap..."
+sudo bash $SCRIPTDIR/bin/confix -s'=' -f $SYSTEMD_SWAP_CONFIG "swapfc_enabled=1"
+sudo systemctl start systemd-swap
+sudo systemctl enable systemd-swap
 
 # Fix Docker
 echo "* Fixing docker permissions..."
