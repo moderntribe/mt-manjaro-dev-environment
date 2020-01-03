@@ -83,12 +83,6 @@ fi
 if [[ $THEME = true ]]; then
     echo "* Installing Arc theme..."
     xargs sudo pacman -S --needed --noconfirm < $SCRIPTDIR/conf/pacman/pkglist-theme.txt
-    echo "* Installing Pop! Icons..."
-    git clone https://github.com/pop-os/icon-theme.git $SCRIPTDIR/make/icon-theme
-    cd $SCRIPTDIR/make/icon-theme
-    sudo make install
-    sudo make post-install
-    cd $SCRIPTDIR
 
     # Configure theme for XFCE
     if [[ $XFCE = true ]]; then
@@ -96,8 +90,8 @@ if [[ $THEME = true ]]; then
         xfconf-query -c xsettings -p /Net/ThemeName -s "Arc-Dark"
         xfconf-query -c xfwm4 -p /general/theme -s "Arc-Dark"
 
-        echo "* Enabling Pop! Icons..."
-        xfconf-query -c xsettings -p /Net/IconThemeName -s "Pop"
+        echo "* Enabling Papirus Dark Icons"
+        xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
 
         echo "* Setting Fonts..."
         xfconf-query -c xsettings -p /Gtk/FontName -s "Droid Sans 11"
@@ -110,7 +104,7 @@ if [[ $THEME = true ]]; then
         bash $SCRIPTDIR/bin/confix -s'=' -f $WHISKER "show-button-icon=true"
 
         echo "* Setting start menu favorites..."
-        bash $SCRIPTDIR/bin/confix -s'=' -f $WHISKER "favorites=exo-terminal-emulator.desktop,exo-file-manager.desktop,pamac-manager.desktop,jetbrains-phpstorm.desktop,telegramdesktop.desktop,galculator.desktop,google-chrome.desktop,slack.desktop"
+        bash $SCRIPTDIR/bin/confix -s'=' -f $WHISKER "favorites=exo-terminal-emulator.desktop,exo-file-manager.desktop,pamac-manager.desktop,jetbrains-phpstorm.desktop,telegramdesktop.desktop,galculator.desktop,slack.desktop"
 
     fi
 fi
