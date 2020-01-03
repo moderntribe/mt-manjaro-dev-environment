@@ -90,8 +90,8 @@ if [[ $THEME = true ]]; then
         xfconf-query -c xsettings -p /Net/ThemeName -s "Arc-Dark"
         xfconf-query -c xfwm4 -p /general/theme -s "Arc-Dark"
 
-        echo "* Enabling Papirus Dark Icons"
-        xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
+        echo "* Enabling Papirus Dark Maia Icons"
+        xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark-Maia"
 
         echo "* Setting Fonts..."
         xfconf-query -c xsettings -p /Gtk/FontName -s "Droid Sans 11"
