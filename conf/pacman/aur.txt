@@ -9,6 +9,7 @@ php-codesniffer
 phpstorm
 slack-desktop
 sublime-text-dev
+ttf-mac-fonts
 visual-studio-code-bin
 wp-cli
 zoom
