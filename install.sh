@@ -69,8 +69,8 @@ xargs sudo pacman -S --needed --noconfirm < $SCRIPTDIR/conf/pacman/pkglist.txt
 xargs yay -S --noconfirm --mflags "--nocheck" < $SCRIPTDIR/conf/pacman/aur.txt
 
 # Install NVM
-echo "* Installing NVM v0.35.1..."
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.1/install.sh | bash
+echo "* Installing NVM v0.35.2..."
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.2/install.sh | bash
 
 # Install EB cli
 echo "* Installing Amazon EB cli"
@@ -94,8 +94,8 @@ if [[ $THEME = true ]]; then
         xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark-Maia"
 
         echo "* Setting Fonts..."
-        xfconf-query -c xsettings -p /Gtk/FontName -s "Droid Sans 11"
-        xfconf-query -c xfwm4 -p /general/title_font -s "Bitstream Vera Sans 12"
+        xfconf-query -c xsettings -p /Gtk/FontName -s "Lucida Grande Regular 11"
+        xfconf-query -c xfwm4 -p /general/title_font -s "Lucida Grande Regular 11"
 
         echo "* Setting start menu icon...."
         sudo cp -f $SCRIPTDIR/images/tribe-logo.svg /usr/share/icons/tribe-logo.svg
