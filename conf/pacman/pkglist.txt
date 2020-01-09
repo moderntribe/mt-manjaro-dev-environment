@@ -2,6 +2,7 @@ ansible
 aws-cli
 bind-tools
 bower
+brave
 composer
 docker
 docker-compose
