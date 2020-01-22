@@ -1,3 +1,4 @@
+aws-session-manager-plugin
 chromedriver
 discord
 dockstation
