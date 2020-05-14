@@ -69,8 +69,8 @@ xargs sudo pacman -S --needed --noconfirm < $SCRIPTDIR/conf/pacman/pkglist.txt
 xargs yay -S --noconfirm --mflags "--nocheck" < $SCRIPTDIR/conf/pacman/aur.txt
 
 # Install NVM
-echo "* Installing NVM v0.35.2..."
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.2/install.sh | bash
+echo "* Installing NVM v0.35.3..."
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.3/install.sh | bash
 
 # Install EB cli
 echo "* Installing Amazon EB cli"
@@ -124,14 +124,6 @@ mkdir $HOME/projects/tribe
 mkdir $HOME/projects/personal
 mkdir $HOME/projects/codeable
 
-# Clone Square One
-if [[ ! -d $HOME/projects/tribe/square-one ]]; then
-    echo "* Cloning the Square One framework to $HOME/projects/tribe/square-one..."
-    git clone https://github.com/moderntribe/square-one/ $HOME/projects/tribe/square-one
-else
-    echo "* Skipping Square One cloning, directory already exists..."
-fi
-
 # Configure PHP
 echo "* Copying php.ini to /etc/php..."
 sudo cp -f $SCRIPTDIR/conf/php/php.ini /etc/php/php.ini
@@ -169,12 +161,9 @@ sudo usermod -a -G docker $USER
 echo "* Enable docker on boot..."
 sudo systemctl enable docker
 
-# Copy extra scripts
-echo "* Copying start-sq1.sh and stopcontainers.sh to /usr/local/bin..."
-sudo cp -f $SCRIPTDIR/bin/start-sq1.sh /usr/local/bin/start-sq1.sh
-sudo cp -f $SCRIPTDIR/bin/stopcontainers.sh /usr/local/bin/stopcontainers.sh
-sudo chown root.root /usr/local/bin/*
-sudo chmod +x /usr/local/bin/*
+# Install SquareOne Global Docker
+echo "* Installing SquareOne Global Docker CLI tool..."
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/moderntribe/square1-global-docker/master/scripts/install.sh)"
 
 # Enable user namespaces so Brave works properly
 echo "* Enabling user namespaces..."
