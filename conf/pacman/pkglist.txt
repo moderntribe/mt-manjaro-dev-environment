@@ -12,6 +12,7 @@ filezilla
 jq
 lsof
 mariadb-clients
+ncdu
 neofetch
 node-gyp
 nodejs
