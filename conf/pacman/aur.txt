@@ -6,7 +6,6 @@ libreswan
 networkmanager-l2tp
 networkmanager-libreswan
 php-codesniffer
-phpstorm-jre
 phpstorm
 slack-desktop
 sublime-text-dev
