@@ -166,8 +166,13 @@ echo "* Installing SquareOne Global Docker CLI tool..."
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/moderntribe/square1-global-docker/master/scripts/install.sh)"
 
 # Enable user namespaces so Brave works properly
-echo "* Enabling user namespaces..."
+echo "* Enabling user namespaces so Brave Browser works properly..."
 echo kernel.unprivileged_userns_clone = 1 | sudo tee /etc/sysctl.d/00-local-userns.conf
+
+# Fix Brave/Nvidia gpu crashing after computer wakes up
+BRAVE_CONFIG=$HOME/.config/brave-flags.conf
+echo "* Copying custom Brave Browser config to ${BRAVE_CONFIG}"
+cp $SCRIPTDIR/conf/user/.config/brave-flags.conf $BRAVE_CONFIG
 
 # Notes and Reboot
 echo "**************************************************************************************************************************"
