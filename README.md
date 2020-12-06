@@ -2,8 +2,6 @@
 
 ![Screenshot](images/screenshot.png)
 
-**Status: Beta**
-
 This script automatically installs and configures packages that I use as a backend developer at Modern Tribe.
 It also configures my personal look and feel for the desktop environment, which is optional.
 
@@ -31,14 +29,14 @@ releases for testing before they reach Manjaro. Manjaro is a rolling release dis
 
 ### Why XFCE?
 
-XFCE is a mature, lightweight and configurable desktop environment that doesn't get in the way and is light on resource usage.
+XFCE is a mature, lightweight and configurable desktop environment that doesn't get in the way.
 
 ### What gets installed?
 
 Check out the [pkglist.txt](conf/pacman/pkglist.txt) and [aur.txt](conf/pacman/aur.txt) for a list of packages that get installed. The script
 also installs some other packages that aren't in the downstream including [nvm](https://github.com/creationix/nvm).
 
-If you agree to install the visual customizations, the script will install the [Arc Theme](https://github.com/horst3180/arc-theme) and [Pop! OS Icons](https://github.com/pop-os/icon-theme).
+If you agree to install the visual customizations, the script will install the [Arc Theme](https://github.com/horst3180/arc-theme).
 
 ### Why are you using AUR?
 
