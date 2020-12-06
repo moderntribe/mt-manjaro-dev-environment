@@ -42,19 +42,11 @@ If you agree to install the visual customizations, the script will install the [
 
 ### Why are you using AUR?
 
-[AUR](https://aur.archlinux.org/) is repository of user contributed packages. I did try using snaps (snap does get installed with this script...), but I found the performance was not quite as good.
+[AUR](https://aur.archlinux.org/) is a repository of user contributed packages. I did try using snaps (snap does get installed with this script...), but I found the performance was not quite as good.
 You can always remove the packages and install them with [Snap](https://snapcraft.io/) instead or examine the PKGBUILD files of each package yourself. This really isn't that different from using
 custom PPA's in Debian.
 
 **However, use this script at your own risk!**
-
-
-## Troubleshooting
-
-### My touchpad or other device doesn't work
-
-Manjaro recently switched to Kernel 4.19 as their default. I personally found 4.14 LTS to work better for me.
-If you're experiencing issues, try switching Kernels, which Manjaro makes [very easy](https://wiki.manjaro.org/index.php/Manjaro_Kernels).
 
 ## Credits
 
