@@ -11,7 +11,7 @@ Even if you don't agree with my style, this will give you a good starting point 
 
 ## Installation prerequisites
 
-Before using this install script, make sure you have installed the latest [Manjaro XFCE Edition](https://manjaro.org/download/official/xfce/).
+Before using this install script, make sure you have installed the latest [Manjaro XFCE Edition](https://manjaro.org/downloads/official/xfce/).
 
 ## Installation
 
