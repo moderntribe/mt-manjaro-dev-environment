@@ -164,7 +164,7 @@ sudo systemctl enable docker
 
 # Install SquareOne Global Docker
 echo "* Installing SquareOne Global Docker CLI tool..."
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/moderntribe/square1-global-docker/master/scripts/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/moderntribe/square1-global-docker/master/install/install.sh)"
 
 # Enable user namespaces so Brave works properly
 echo "* Enabling user namespaces so Brave Browser works properly..."
