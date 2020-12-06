@@ -69,8 +69,9 @@ xargs sudo pacman -S --needed --noconfirm < $SCRIPTDIR/conf/pacman/pkglist.txt
 xargs yay -S --noconfirm --mflags "--nocheck" < $SCRIPTDIR/conf/pacman/aur.txt
 
 # Install NVM
-echo "* Installing NVM v0.35.3..."
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+NVM_VERSION="v0.37.2"
+echo "* Installing NVM $NVM_VERSION"
+curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh" | bash
 
 # Install EB cli
 echo "* Installing Amazon EB cli"
