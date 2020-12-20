@@ -1,4 +1,5 @@
 aws-session-manager-plugin
+brave-bin
 chromedriver
 discord
 dockstation
