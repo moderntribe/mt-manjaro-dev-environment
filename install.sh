@@ -171,9 +171,10 @@ echo "* Enabling user namespaces so Brave Browser works properly..."
 echo kernel.unprivileged_userns_clone = 1 | sudo tee /etc/sysctl.d/00-local-userns.conf
 
 # Fix Brave/Nvidia gpu crashing after computer wakes up
-BRAVE_CONFIG=$HOME/.config/brave-flags.conf
-echo "* Copying custom Brave Browser config to ${BRAVE_CONFIG}"
-cp $SCRIPTDIR/conf/user/.config/brave-flags.conf $BRAVE_CONFIG
+# Hopefully no longer needed with most recent versions.
+# BRAVE_CONFIG=$HOME/.config/brave-flags.conf
+# echo "* Copying custom Brave Browser config to ${BRAVE_CONFIG}"
+# cp $SCRIPTDIR/conf/user/.config/brave-flags.conf $BRAVE_CONFIG
 
 # Notes and Reboot
 echo "**************************************************************************************************************************"
