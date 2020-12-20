@@ -3,7 +3,6 @@ aws-cli
 bash-completion
 bind-tools
 bower
-brave
 composer
 docker
 docker-compose
