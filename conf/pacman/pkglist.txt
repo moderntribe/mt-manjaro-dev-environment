@@ -8,6 +8,7 @@ docker
 docker-compose
 docker-machine
 filezilla
+fish
 jq
 lsof
 mariadb-clients
