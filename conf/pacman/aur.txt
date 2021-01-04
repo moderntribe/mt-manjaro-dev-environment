@@ -1,4 +1,3 @@
-aws-session-manager-plugin
 brave-bin
 chromedriver
 discord
@@ -13,5 +12,5 @@ slack-desktop
 sublime-text-dev
 ttf-mac-fonts
 visual-studio-code-bin
-wp-cli
+wp-cli-git
 zoom
