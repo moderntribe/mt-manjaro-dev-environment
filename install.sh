@@ -135,6 +135,12 @@ if [[ $XFCE = true ]]; then
     xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Primary><Shift>Print" -s "xfce4-screenshooter -rc"
 fi
 
+# Set drop down terminal shortcode
+if [[ $XFCE = true ]]; then
+    echo "* Setting drop down terminal hotkey to CTRL+G..."
+    xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Primary>g" -s "xfce4-terminal --drop-down"
+fi
+
 # Nord terminal theme
 echo "* Setting terminal theme"
 git clone https://github.com/arcticicestudio/nord-xfce-terminal
@@ -158,6 +164,9 @@ curl -L https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/insta
 
 # Install agnoster fish theme
 omf install agnoster
+
+# Set Nord colors for fish
+cp $SCRIPTDIR/conf/fish/fish_variables ~/.config/fish/fish_variables
 
 # Install SquareOne Global Docker
 echo "* Installing SquareOne Global Docker CLI tool..."
