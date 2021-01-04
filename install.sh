@@ -168,6 +168,10 @@ omf install agnoster
 # Set Nord colors for fish
 cp $SCRIPTDIR/conf/fish/fish_variables ~/.config/fish/fish_variables
 
+# Install global code sniffing
+echo "* Installing global php code sniffing with composer"
+composer g require --dev automattic/vipwpcs dealerdirect/phpcodesniffer-composer-installer phpcompatibility/phpcompatibility-wp slevomat/coding-standard
+
 # Install SquareOne Global Docker
 echo "* Installing SquareOne Global Docker CLI tool..."
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/moderntribe/square1-global-docker/master/install/install.sh)"
