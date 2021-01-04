@@ -147,6 +147,10 @@ git clone https://github.com/arcticicestudio/nord-xfce-terminal
 bash ./nord-xfce-terminal/install.sh
 cp -f $SCRIPTDIR/conf/xfce4/terminalrc ~/.config/xfce4/terminal/terminalrc
 
+# Install global code sniffing
+echo "* Installing global php code sniffing with composer"
+composer g require --dev automattic/vipwpcs dealerdirect/phpcodesniffer-composer-installer phpcompatibility/phpcompatibility-wp slevomat/coding-standard
+
 # Systemd-swap to help with memory problems
 echo "* Setting up systemd-swap..."
 sudo bash $SCRIPTDIR/bin/confix -s'=' -f $SYSTEMD_SWAP_CONFIG "swapfc_enabled=1"
@@ -167,10 +171,6 @@ omf install agnoster
 
 # Set Nord colors for fish
 cp $SCRIPTDIR/conf/fish/fish_variables ~/.config/fish/fish_variables
-
-# Install global code sniffing
-echo "* Installing global php code sniffing with composer"
-composer g require --dev automattic/vipwpcs dealerdirect/phpcodesniffer-composer-installer phpcompatibility/phpcompatibility-wp slevomat/coding-standard
 
 # Install SquareOne Global Docker
 echo "* Installing SquareOne Global Docker CLI tool..."
