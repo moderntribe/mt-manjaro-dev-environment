@@ -150,6 +150,7 @@ cp -f $SCRIPTDIR/conf/xfce4/terminalrc ~/.config/xfce4/terminal/terminalrc
 # Install global code sniffing
 echo "* Installing global php code sniffing with composer"
 composer g require --dev automattic/vipwpcs dealerdirect/phpcodesniffer-composer-installer phpcompatibility/phpcompatibility-wp slevomat/coding-standard
+fish -c "set -U fish_user_paths $HOME/.config/composer/vendor/bin"
 
 # Systemd-swap to help with memory problems
 echo "* Setting up systemd-swap..."
