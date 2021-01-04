@@ -143,13 +143,6 @@ if ! command grep -qc '(cat ~/.cache/wal/sequences &)' $HOME/.bashrc; then
     echo "(cat ~/.cache/wal/sequences &)" >> $HOME/.bashrc
 fi
 
-# Setup snaps
-echo "* Setting up snapd..."
-sudo systemctl enable --now snapd.socket
-if [[ ! -d /snap ]]; then
-    sudo ln -s /var/lib/snapd/snap /snap
-fi
-
 # Systemd-swap to help with memory problems
 echo "* Setting up systemd-swap..."
 sudo bash $SCRIPTDIR/bin/confix -s'=' -f $SYSTEMD_SWAP_CONFIG "swapfc_enabled=1"
