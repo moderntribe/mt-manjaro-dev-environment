@@ -135,13 +135,11 @@ if [[ $XFCE = true ]]; then
     xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Primary><Shift>Print" -s "xfce4-screenshooter -rc"
 fi
 
-# Wallpaper and terminal colors
-echo "* Setting wallpaper and terminal colors..."
-sudo cp -f $SCRIPTDIR/images/spectral.jpg /usr/share/backgrounds/spectral.jpg
-wal -q -i /usr/share/backgrounds/spectral.jpg
-if ! command grep -qc '(cat ~/.cache/wal/sequences &)' $HOME/.bashrc; then
-    echo "(cat ~/.cache/wal/sequences &)" >> $HOME/.bashrc
-fi
+# Nord terminal theme
+echo "* Setting terminal theme"
+git clone https://github.com/arcticicestudio/nord-xfce-terminal
+bash ./nord-xfce-terminal/install.sh
+cp -f $SCRIPTDIR/conf/xfce4/terminalrc ~/.config/xfce4/terminal/terminalrc
 
 # Systemd-swap to help with memory problems
 echo "* Setting up systemd-swap..."
