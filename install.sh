@@ -153,6 +153,12 @@ sudo usermod -a -G docker $USER
 echo "* Enable docker on boot..."
 sudo systemctl enable docker
 
+# Oh My Fish
+curl -L https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+
+# Install agnoster fish theme
+omf install agnoster
+
 # Install SquareOne Global Docker
 echo "* Installing SquareOne Global Docker CLI tool..."
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/moderntribe/square1-global-docker/master/install/install.sh)"
