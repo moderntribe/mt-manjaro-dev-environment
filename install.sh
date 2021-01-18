@@ -129,16 +129,20 @@ mkdir $HOME/projects/codeable
 echo "* Copying php.ini to /etc/php..."
 sudo cp -f $SCRIPTDIR/conf/php/php.ini /etc/php/php.ini
 
-# Set screenshot shortcut
 if [[ $XFCE = true ]]; then
+    # Set screenshot shortcut
     echo "* Setting screenshot hotkey CTRL+SHIFT+PRTSC to allow selecting an area to copy to clipboard..."
     xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Primary><Shift>Print" -s "xfce4-screenshooter -rc"
-fi
-
-# Set drop down terminal shortcode
-if [[ $XFCE = true ]]; then
+    
+    # Set drop down terminal shortcut
     echo "* Setting drop down terminal hotkey to CTRL+G..."
     xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Primary>g" -s "xfce4-terminal --drop-down"
+    
+    # Disable sluggish xcape whisker menu shortcut
+    echo "* Disabling xcape and manually binding Super L key to whisker menu..."
+    killall -9 xcape
+    rm -rf "$HOME"/.config/autostart/xcape.desktop  
+    xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -s "xfce4-popup-whiskermenu"
 fi
 
 # Nord terminal theme
