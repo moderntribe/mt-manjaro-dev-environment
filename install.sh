@@ -141,7 +141,7 @@ if [[ $XFCE = true ]]; then
     # Disable sluggish xcape whisker menu shortcut
     echo "* Disabling xcape and manually binding Super L key to whisker menu..."
     killall -9 xcape
-    rm -rf "$HOME"/.config/autostart/xcape.desktop  
+    rm -rf "$HOME/.config/autostart/xcape.desktop"
     xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -s "xfce4-popup-whiskermenu"
 fi
 
