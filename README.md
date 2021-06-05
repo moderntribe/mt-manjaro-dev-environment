@@ -48,6 +48,5 @@ custom PPA's in Debian.
 
 ## Credits
 
-Spectral Wallpaper: https://www.deviantart.com/specialized666/art/Spectral-734639744  
 Confix Script: https://github.com/budhash/confix
  
