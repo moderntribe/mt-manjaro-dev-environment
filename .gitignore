@@ -19,3 +19,7 @@ pimple.json
 #######################
 
 *.un~
+
+# Installer files #
+#######################
+/install_omf

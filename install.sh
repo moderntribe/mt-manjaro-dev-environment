@@ -24,7 +24,7 @@ fi
 
 # Check window manager
 if [[ $WM != "xfce.desktop" ]]; then
-    echo "This install doesn't appear to be using the XFCE Window Manager...this will skip some visual customizations. Continue [y/n]?"
+    echo "This install doesn't appear to be using the XFCE Window Manager...this will skip some visual customizations but still install core software. Continue [y/n]?"
     read CHOICE
     if [[ $CHOICE == y* ]]; then
         XFCE=false
@@ -69,7 +69,7 @@ xargs sudo pacman -S --needed --noconfirm < $SCRIPTDIR/conf/pacman/pkglist.txt
 xargs yay -S --noconfirm --mflags "--nocheck" < $SCRIPTDIR/conf/pacman/aur.txt
 
 # Install NVM
-NVM_VERSION="v0.37.2"
+NVM_VERSION="v0.38.0"
 echo "* Installing NVM $NVM_VERSION"
 curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh" | bash
 
@@ -133,11 +133,16 @@ if [[ $XFCE = true ]]; then
     # Set screenshot shortcut
     echo "* Setting screenshot hotkey CTRL+SHIFT+PRTSC to allow selecting an area to copy to clipboard..."
     xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Primary><Shift>Print" -s "xfce4-screenshooter -rc"
-    
+
+    # Set wallpaper
+    echo "* Setting wallpaper..."
+    sudo cp -f $SCRIPTDIR/images/tribe-wallpaper.png /usr/share/backgrounds/tribe-wallpaper.png
+    wal -q -s -t -i /usr/share/backgrounds/tribe-wallpaper.png
+
     # Set drop down terminal shortcut
     echo "* Setting drop down terminal hotkey to CTRL+G..."
     xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/<Primary>g" -s "xfce4-terminal --drop-down"
-    
+
     # Disable sluggish xcape whisker menu shortcut
     echo "* Disabling xcape and manually binding Super L key to whisker menu..."
     killall -9 xcape
@@ -149,12 +154,6 @@ fi
 echo "* Setting terminal theme"
 git clone https://github.com/arcticicestudio/nord-xfce-terminal
 bash ./nord-xfce-terminal/install.sh
-cp -f $SCRIPTDIR/conf/xfce4/terminalrc ~/.config/xfce4/terminal/terminalrc
-
-# Install global code sniffing
-echo "* Installing global php code sniffing with composer"
-composer g require --dev automattic/vipwpcs dealerdirect/phpcodesniffer-composer-installer phpcompatibility/phpcompatibility-wp slevomat/coding-standard
-fish -c "set -U fish_user_paths $HOME/.config/composer/vendor/bin"
 
 # Systemd-swap to help with memory problems
 echo "* Setting up systemd-swap..."
@@ -167,15 +166,6 @@ echo "* Fixing docker permissions..."
 sudo usermod -a -G docker $USER
 echo "* Enable docker on boot..."
 sudo systemctl enable docker
-
-# Oh My Fish
-curl -L https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
-
-# Install agnoster fish theme
-omf install agnoster
-
-# Set Nord colors for fish
-cp $SCRIPTDIR/conf/fish/fish_variables ~/.config/fish/fish_variables
 
 # Install SquareOne Global Docker
 echo "* Installing SquareOne Global Docker CLI tool..."
@@ -190,6 +180,30 @@ echo kernel.unprivileged_userns_clone = 1 | sudo tee /etc/sysctl.d/00-local-user
 # BRAVE_CONFIG=$HOME/.config/brave-flags.conf
 # echo "* Copying custom Brave Browser config to ${BRAVE_CONFIG}"
 # cp $SCRIPTDIR/conf/user/.config/brave-flags.conf $BRAVE_CONFIG
+
+# Fish shell
+echo "* Installing and configuring fish shell..."
+
+# Install Oh My Fish
+curl -L https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > install_omf
+chmod +x install_omf
+fish -c "./install_omf --noninteractive --yes"
+
+# Install agnoster fish theme
+fish -c "omf install agnoster"
+
+# Install fish nvm support
+fish -c "omf install https://github.com/fabioantunes/fish-nvm"
+fish -c "omf install https://github.com/edc/bass"
+
+# Set Nord colors for fish
+cp $SCRIPTDIR/conf/fish/fish_variables ~/.config/fish/fish_variables
+
+# Add composer global bin directory to paths
+fish -c "set -U fish_user_paths $HOME/.config/composer/vendor/bin"
+
+# Tell XFCE terminal to use fish as the default shell
+cp -f $SCRIPTDIR/conf/xfce4/terminalrc ~/.config/xfce4/terminal/terminalrc
 
 # Notes and Reboot
 echo "**************************************************************************************************************************"
