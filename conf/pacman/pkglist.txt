@@ -5,7 +5,6 @@ bind-tools
 bower
 composer
 docker
-docker-compose
 docker-machine
 filezilla
 fish
