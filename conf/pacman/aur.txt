@@ -11,7 +11,7 @@ php-codesniffer
 phpstorm
 phpstorm-jre
 slack-desktop
-sublime-text-dev
+sublime-text-3
 sweet-folders-icons-git
 ttf-mac-fonts
 visual-studio-code-bin
