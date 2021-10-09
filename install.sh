@@ -148,6 +148,10 @@ if [[ $XFCE = true ]]; then
     killall -9 xcape
     rm -rf "$HOME/.config/autostart/xcape.desktop"
     xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -s "xfce4-popup-whiskermenu"
+    
+    # Disable alt + mouse zoom
+    echo "* Disabling alt + mouse zoom hot key"
+    xfconf-query --set false --channel xfwm4 --property /general/zoom_desktop
 fi
 
 # Nord terminal theme
