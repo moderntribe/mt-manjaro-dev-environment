@@ -69,7 +69,7 @@ xargs sudo pacman -S --needed --noconfirm < $SCRIPTDIR/conf/pacman/pkglist.txt
 xargs yay -S --noconfirm --mflags "--nocheck" < $SCRIPTDIR/conf/pacman/aur.txt
 
 # Install NVM
-NVM_VERSION="v0.38.0"
+NVM_VERSION="v0.39.1"
 echo "* Installing NVM $NVM_VERSION"
 curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh" | bash
 
@@ -148,7 +148,7 @@ if [[ $XFCE = true ]]; then
     killall -9 xcape
     rm -rf "$HOME/.config/autostart/xcape.desktop"
     xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -s "xfce4-popup-whiskermenu"
-    
+
     # Disable alt + mouse zoom
     echo "* Disabling alt + mouse zoom hot key"
     xfconf-query --set false --channel xfwm4 --property /general/zoom_desktop
