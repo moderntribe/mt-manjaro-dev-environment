@@ -1,8 +1,4 @@
-brave-bin
-candy-icons-git
-chromedriver
 discord
-docker-compose-bin
 dockstation
 libreswan
 networkmanager-l2tp
@@ -12,8 +8,7 @@ phpstorm
 phpstorm-jre
 slack-desktop
 sublime-text-3
-sweet-folders-icons-git
 ttf-mac-fonts
-visual-studio-code-bin
-wp-cli-git
+vscodium-bin
+wp-cli-bin
 zoom
