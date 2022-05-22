@@ -3,9 +3,10 @@ aws-cli
 bash-completion
 bind-tools
 bower
+brave-browser
 composer
 docker
-docker-machine
+docker-compose
 filezilla
 fish
 jq
@@ -22,8 +23,12 @@ php
 php-gd
 php-memcache
 php-memcached
+php7
+php7-gd
+php7-memcache
+php7-memcached
+php7-pcov
 python-pywal
-snapd
 systemd-swap
 telegram-desktop
 ttf-bitstream-vera
