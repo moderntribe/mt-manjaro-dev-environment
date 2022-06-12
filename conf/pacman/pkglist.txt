@@ -30,7 +30,6 @@ php7-memcached
 php7-pcov
 python-pywal
 systemd-swap
-telegram-desktop
 ttf-bitstream-vera
 ttf-droid
 ttf-inconsolata

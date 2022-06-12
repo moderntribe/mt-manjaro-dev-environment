@@ -8,6 +8,7 @@ phpstorm
 phpstorm-jre
 slack-desktop
 sublime-text-3
+telegram-desktop-bin
 ttf-mac-fonts
 vscodium-bin
 wp-cli-bin
