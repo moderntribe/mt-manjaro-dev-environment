@@ -23,11 +23,6 @@ php
 php-gd
 php-memcache
 php-memcached
-php7
-php7-gd
-php7-memcache
-php7-memcached
-php7-pcov
 python-pywal
 systemd-swap
 ttf-bitstream-vera
